@@ -1,0 +1,9 @@
+{
+  "name": "com.myhost.notepad",
+  "description": "Launches Notepad",
+  "path": "C:\\myou\\test\\host\\native-messaging-host.py",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://kkgadoenmhkdlpgbbkjngahfpgjlneih/"
+  ]
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Web ↔ Extension Messaging Test</title>
+</head>
+<body>
+<h1>Web ↔ Extension Ping Test</h1>
+<button id="sendPing">Send Ping to Extension</button>
+<button id="sendNative">Send Native Call</button>
+<pre id="log"></pre>
+
+<script>
+  const logEl = document.getElementById('log');
+
+  // 메시지 수신
+  window.addEventListener("message", (event) => {
+    if (event.source !== window) return;
+
+    if (event.data?.type === "FROM_EXTENSION") {
+      logEl.textContent += "\nImmediate response:\n" + JSON.stringify(event.data.payload, null, 2);
+    }
+
+    if (event.data?.type === "FROM_EXTENSION_DELAYED") {
+      logEl.textContent += "\nDelayed response (5s):\n" + JSON.stringify(event.data.payload, null, 2);
+    }
+  });
+
+  // Send message to content script
+  document.getElementById('sendPing').addEventListener('click', () => {
+    window.postMessage({
+      type: "FROM_PAGE",
+      payload: { message: "ping from page" }
+    }, "*");
+  });
+
+  // Send message to content script
+  document.getElementById('sendNative').addEventListener('click', () => {
+    window.postMessage({
+      type: "FROM_PAGE",
+      payload: { command: "launch-notepad" }
+    }, "*");
+  });
+</script>
+</body>
+</html>

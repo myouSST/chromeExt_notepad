@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Web ↔ Extension Messaging",
+  "version": "1.0",
+  "description": "Demo of message communication between webpage and extension",
+  "permissions": ["scripting", "nativeMessaging"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
